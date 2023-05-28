@@ -239,7 +239,7 @@ public:
 	 * @since 0.0.1 
 	 * @throws StompException if there is an error reading in the entire frame
 	 */
-		void sendFrame(StompFrame& frame) throw (StompException);
+		void sendFrame(StompFrame& frame) ;
 
 	/**
 	 * Parses an entire STOMP frame from the input stream, placing
@@ -316,7 +316,7 @@ public:
 	 * @throw StompExceptin if a problem occurs sending or recieving frames
 	 */
 	void
-	sendMessage(const std::string &destination, const std::string &message) throw (StompException);
+	sendMessage(const std::string &destination, const std::string &message);
 
 	/**
 	 * Send a message to a specific destiantion with the specified properties
@@ -331,13 +331,13 @@ public:
 	void
 	sendMessage(const std::string& dest, 
 		const std::string& msg,
-		const std::map< std::string, std::string >& properties ) throw (StompException);
+		const std::map< std::string, std::string >& properties );
 
 	void
 	sendMessage(
 		const std::string& dest,
 		const StompFrame& frame
-		) throw ( StompException );
+		);
 	/**
 	 * Subscribe the current connection to the specified queue
 	 * so that message may be received.

@@ -46,7 +46,7 @@ BOOST_LFLAGS=-L/usr/local/lib -lboost_program_options -lboost_system
 CXX=g++
 CXXFLAGS=-g3 $(GTEST_CFLAGS) $(BOOST_INCLUDE)
 # The following are the linkin flags -- g++ is used to link to provide meaningful symbol information
-CXX_LFLAGS=-g3 $(GTEST_LFLAGS) $(BOOST_LFLAGS)
+CXX_LFLAGS=-g3 $(GTEST_LFLAGS) $(BOOST_LFLAGS) -lpthread
 
 #
 # Help/Targets

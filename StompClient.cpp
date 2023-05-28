@@ -71,7 +71,7 @@ using namespace mee::stomp;
  */
 StompClient::~StompClient() { }
 
-void StompClient::sendFrame(StompFrame& frame) throw (StompException){
+void StompClient::sendFrame(StompFrame& frame) {
 	/*
 	 * Write our operation
 	 */
@@ -286,7 +286,7 @@ const std::string& StompClient::getSessionID() const {
 	return sessionID;
 }
 
-void StompClient::sendMessage(const std::string& dest, const std::string& msg) throw (StompException) {
+void StompClient::sendMessage(const std::string& dest, const std::string& msg) {
 	std::map< std::string, std::string > props;
 	sendMessage( dest, msg, props );
 }
@@ -294,7 +294,6 @@ void StompClient::sendMessage(const std::string& dest, const std::string& msg) t
 void StompClient::sendMessage(const std::string& dest, 
 		const std::string& msg,
 		const std::map< std::string, std::string >& properties )
-	throw (StompException)
 {
 	StompFrame frame;
 	frame.operation = "SEND";
@@ -304,7 +303,7 @@ void StompClient::sendMessage(const std::string& dest,
 	sendFrame( frame );
 }
 
-void StompClient::sendMessage( const std::string& dest, const StompFrame& frame ) throw ( StompException ) {
+void StompClient::sendMessage( const std::string& dest, const StompFrame& frame ) {
 	sendMessage( dest, frame.message.str(), frame.properties );
 }
 
@@ -326,7 +325,7 @@ void StompClient::subscribe(const std::string& dest, const AcknowledgeMode mode,
 		throw StompException("Currently unsupported ack mode");
 	}
 	frame.properties.insert(std::pair<std::string, std::string>("ack", ack));
-	if(strcpy(selector.c_str(), "") != 0){
+	if(!selector.empty()) {
 		frame.properties.insert(std::pair<std::string, std::string>("selector", selector));
 	}
 	/*
