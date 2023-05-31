@@ -34,6 +34,8 @@
 #include "StompClient.h"
 #include <gtest/gtest.h>
 
+using namespace mee::stomp;
+
 TEST(StompClient,Connect_Send) {
 	EXPECT_NO_THROW( {
 				std::stringstream buffer;
@@ -51,7 +53,7 @@ TEST(StompClient,ReceiveProperty_Good) {
 		std::stringstream buffer;
 		buffer << "Test: property\n";
 
-		struct StompFrame frame;
+		StompFrame frame;
 		StompClient client(buffer);
 		std::pair<std::string,std::string> p = client.receiveProperty();
 
@@ -67,7 +69,7 @@ TEST(StompClient, RecieveBadProperty_WithNL) {
 		std::stringstream buffer;
 		buffer << "Test\n";
 
-		struct StompFrame frame;
+		StompFrame frame;
 		StompClient client(buffer);
 		std::pair<std::string,std::string> p = client.receiveProperty();
 		FAIL() << "Property is invalid without colon";
@@ -125,7 +127,7 @@ TEST(StompClient, ReceiveTwoProperties) {
 
 TEST(StompClient,Connect_Recieved_Good_Frame) {
 	try {
-		struct StompFrame frame;
+		StompFrame frame;
 		frame.operation = "CONNECTED";
 		frame.properties.insert(std::pair<std::string,std::string>("session","1234"));
 
@@ -140,7 +142,7 @@ TEST(StompClient,Connect_Recieved_Good_Frame) {
 
 TEST(StompClient,FrameTerminatorConsumed) {
 	try {
-		struct StompFrame firstFrame, secondFrame;
+		StompFrame firstFrame, secondFrame;
 
 		std::stringstream buffer;
 		buffer << "ONE\n\n";

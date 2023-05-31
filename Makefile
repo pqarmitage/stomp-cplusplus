@@ -114,8 +114,8 @@ stomp-main.o: stomp-main.cpp
 ################################################################################
 # Tests
 ################################################################################
-test: testStompClient.o libstomp_util.a
-	$(CXX) $> $(GTEST_LFLAGS) -o $@
+test: testStompClient.o libstomp_util.a StompClient.o
+	$(CXX) $^ $(GTEST_LFLAGS) -o $@
 testStompClient.o: testStompClient.cpp
-	$(CXX) $(GTEST_CFLAGS) -c $> -o $@
+	$(CXX) $(GTEST_CFLAGS) -c $< -o $@
 

@@ -2,3 +2,5 @@
 *.a
 stomp-recv
 stomp-send
+test
+google-test
