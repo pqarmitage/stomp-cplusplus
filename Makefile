@@ -75,12 +75,12 @@ utils: stomp-send stomp-recv
 libraries: libstomp_util.a libstomp_util_main.a
 libstomp_util_main.a: stomp-main.o
 	rm -f $@
-	ar cq $@ $>
+	ar cq $@ $^
 	ranlib $@
 
 libstomp_util.a: StompClient.o stomp-util.o
 	rm -f $@
-	ar cq $@ $> 
+	ar cq $@ $^
 	ranlib $@
 
 #
@@ -114,7 +114,7 @@ stomp-main.o: stomp-main.cpp
 ################################################################################
 # Tests
 ################################################################################
-test: testStompClient.o libstomp_util.a StompClient.o
+test: testStompClient.o libstomp_util.a
 	$(CXX) $^ $(GTEST_LFLAGS) -o $@
 testStompClient.o: testStompClient.cpp
 	$(CXX) $(GTEST_CFLAGS) -c $< -o $@
