@@ -59,15 +59,18 @@ targets:
 	@echo "	stomp-recv	Build the stomp-recv application"
 	@echo "	libstomp_util.a	Builds a static library contianing the core stomp library"
 	@echo "	libraries	Builds all libraries"
+	@echo "	test		Build google test code"
+	@echo "	example		Build example code"
 #
 # cleaning targets
 #
 clean:
-	rm -f *.o stomp-send stomp-recv *.a test
+	rm -f *.o stomp-send stomp-recv *.a test exampleCore
 #
 # Application targets
 #
 utils: stomp-send stomp-recv
+example: exampleCore
 
 #
 # Archive
@@ -86,10 +89,10 @@ libstomp_util.a: StompClient.o stomp-util.o
 #
 # Test targets
 #
-google-test: google-test.o
-	$(CXX) $(LDFLAGS) $? $(CXX_LFLAGS) -o $@
-google-test.o: StompClient.o testStompClient.o
-	$(LD) -i $? -o $@
+#google-test: google-test.o
+#	$(CXX) $(LDFLAGS) $? $(CXX_LFLAGS) -o $@
+#google-test.o: StompClient.o testStompClient.o
+#	$(LD) -i $^ -o $@
 stomp-send: stomp-send-app.o
 	$(CXX) $(CXX_LFLAGS) $? -o $@ 
 	strip $@
@@ -101,6 +104,13 @@ stomp-recv: stomp-recv-app.o
 	strip $@
 stomp-recv-app.o: stomp-main.o stomp-util.o StompClient.o stomp-recv.o
 	$(LD) -i $? -o $@
+
+#
+# Example code
+#
+exampleCore: exampleCore.o libstomp_util.a
+	$(CXX) $(CXX_LFLAGS) $^ -o $@
+
 #
 # Source to object targets
 #

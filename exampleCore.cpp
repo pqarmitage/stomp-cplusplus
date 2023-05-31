@@ -55,7 +55,8 @@ int main( int argc, char** argv ){
 	 * Establish our STOMP protocol session
 	 */
 		mee::stomp::StompClient stompClient( tcpipStream );
-		stompClient.connect( tcpipStream );
+//		stompClient.connect( tcpipStream );
+		stompClient.connect( false );
 	/*
 	 * Send a message
 	 */
@@ -64,15 +65,15 @@ int main( int argc, char** argv ){
 	 * Recieve the message
 	 */
 		stompClient.subscribe( USING_QUEUE );
-		StompFrame msg;
-		stompClient.recieveFrame( msg );
+		mee::stomp::StompFrame msg;
+		stompClient.receiveFrame( msg );
 		stompClient.unsubscribe( USING_QUEUE );
 		std::cout << "Received message: '" << msg.message.str() << "' from destination " << USING_QUEUE << std::endl;
 	/*
 	 * Clean up protocol layers
 	 */
 		stompClient.disconnect();
-		tcpip.close();
+		tcpipStream.close();
 	/*
 	 * Clean exit
 	 */
